@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine.Rendering;
 using System;
 using System.Diagnostics;
@@ -284,6 +284,8 @@ namespace UnityEngine.Experimental.Rendering.HDPipeline
                 return m_SkySettings;
             }
         }
+
+        public static Action<CommandBuffer> OnPreRender;
 
         public HDRenderPipeline(HDRenderPipelineAsset asset)
         {
@@ -685,6 +687,9 @@ namespace UnityEngine.Experimental.Rendering.HDPipeline
             using (new ProfilingSample(cmd, "HDRenderPipeline::Render", GetSampler(CustomSamplerId.HDRenderPipelineRender)))
             {
                 base.Render(renderContext, cameras);
+
+                if (OnPreRender != null)
+                    OnPreRender(cmd);
 
 #if UNITY_EDITOR
             SupportedRenderingFeatures.active = s_NeededFeatures;
