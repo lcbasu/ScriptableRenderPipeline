@@ -9,6 +9,7 @@ namespace UnityEngine.Experimental.Rendering
 
         static readonly int _Source = Shader.PropertyToID("_Source");
         static readonly int _Target = Shader.PropertyToID("_Target");
+        static readonly int _Index = Shader.PropertyToID("_Index");
         static readonly int __Tmp_RT0 = Shader.PropertyToID("__Tmp_RT0");
         static readonly int __Tmp_RT1 = Shader.PropertyToID("__Tmp_RT1");
 
@@ -57,22 +58,11 @@ namespace UnityEngine.Experimental.Rendering
             for (var i = 0; i < 6; i++)
                 cmb.CopyTexture(source, i, __Tmp_RT0, i);
 
-            // Allocate temporary target
-            cubemapToTexture2DArrayDescriptor.colorFormat = RenderTextureFormat.ARGBInt;
-            cubemapToTexture2DArrayDescriptor.width = targetWidth;
-            cubemapToTexture2DArrayDescriptor.height = targetHeight;
-            cmb.GetTemporaryRT(__Tmp_RT1, cubemapToTexture2DArrayDescriptor);
-
-            cmb.SetComputeTextureParam(m_Shader, m_KernelEncodeFast, _Source, __Tmp_RT0);
-            cmb.SetComputeTextureParam(m_Shader, m_KernelEncodeFast, _Target, __Tmp_RT1);
+            cmb.SetComputeTextureParam(m_Shader, m_KernelEncodeFast, _Source, __Tmp_RT0); 
+            cmb.SetComputeTextureParam(m_Shader, m_KernelEncodeFast, _Target, target);
             cmb.DispatchCompute(m_Shader, m_KernelEncodeFast, targetWidth, targetHeight, 6);
 
-            // Convert target Texture2DArray to TextureCube
-            for (var i = 0; i < 6; i++)
-                cmb.CopyTexture(__Tmp_RT1, i, target, i);
-
             cmb.ReleaseTemporaryRT(__Tmp_RT0);
-            cmb.ReleaseTemporaryRT(__Tmp_RT1);
         }
 
         static void CalculateOutputSize(int swidth, int sheight, out int twidth, out int theight)
@@ -85,9 +75,9 @@ namespace UnityEngine.Experimental.Rendering
 
     public static class BC6HExtensions
     {
-        public static void BC6HEncodeFastCubemap(this CommandBuffer cmb, RenderTargetIdentifier source, int sourceSize, RenderTargetIdentifier target)
-        {
-            BC6H.DefaultInstance.EncodeFastCubemap(cmb, source, sourceSize, target);
-        }
+        //public static void BC6HEncodeFastCubemap(this CommandBuffer cmb, RenderTargetIdentifier source, int sourceSize, RenderTargetIdentifier target)
+        //{
+        //    BC6H.DefaultInstance.EncodeFastCubemap(cmb, source, sourceSize, target);
+        //}
     }
 }

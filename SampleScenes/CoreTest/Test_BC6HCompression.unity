@@ -311,7 +311,7 @@ RenderTexture:
     m_WrapW: 1
   m_Dimension: 2
   m_VolumeDepth: 1
---- !u!21 &836536482
+--- !u!21 &1119963278
 Material:
   serializedVersion: 6
   m_ObjectHideFlags: 0
@@ -675,7 +675,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 73fbe8f92db5fb3408250f4bdc5b42cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_BC6HShader: {fileID: 7200000, guid: 032b1a21ddacf0d4faa4b83d1c019f5d, type: 3}
+  m_BC6HShader: {fileID: 7200000, guid: b69b95b3420fd904e8530b79f665a1f8, type: 3}
   m_SourceTexture: {fileID: 8900000, guid: 8714eafe2130af14b835106673e808d1, type: 3}
   m_SourceMaterial: {fileID: 2100000, guid: 78e152488d58e8242bf90ac931fc7c68, type: 2}
   m_TextureName: _ColorMap
@@ -694,7 +694,7 @@ MeshRenderer:
   m_ReflectionProbeUsage: 0
   m_RenderingLayerMask: 4294967295
   m_Materials:
-  - {fileID: 836536482}
+  - {fileID: 1119963278}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

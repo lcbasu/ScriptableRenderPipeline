@@ -1,7 +1,7 @@
 ﻿#include "../ShaderLibrary/BC6H.hlsl"
 
 Texture2DArray<float4> _Source;
-RWTexture2DArray<int4> _Target;
+RWTexture2DArray<uint4> _Target;
 
 #pragma kernel KEncodeFastCubemap
 [numthreads(1, 1, 1)]
